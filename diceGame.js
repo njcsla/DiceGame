@@ -177,6 +177,7 @@ async function drawArt(address) {
 
 async function main() {
 
+    
     while (mainStatus) {
         await drawArt('mainArt_1.utf8ans');
         const answer = await askQuestion('입력해주세요 > ');
