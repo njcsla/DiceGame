@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Game</title>
+    <link rel="preconnect" as="font" href="./asset/fonts/BMJUA_ttf.ttf" type="font/ttf">
+    <style>
+        body {
+            font-family: 'BMJUA_ttf',Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto;
+        }
+        #ui {
+            text-align: center;
+            margin-top: 20px;
+        }
+        @font-face {
+        font-family: 'BMJUA_ttf';
+        src: url('./assets/fonts/BMJUA_ttf.ttf') format('truetype');
+        font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <p id="gameInfo"></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+    <script type="module" src="./index.js"></script>
+</body>
+</html>

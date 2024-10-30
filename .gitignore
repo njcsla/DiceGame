@@ -1,0 +1,17 @@
+# Node 모듈
+node_modules/
+
+# 패키징된 출력물
+dist/
+
+# 환경 파일 및 설정 파일
+*.env
+*.DS_Store
+*.log
+
+# Electron 빌드 아티팩트
+*.asar
+
+# 기타 OS별 시스템 파일
+Thumbs.db
+.DS_Store
