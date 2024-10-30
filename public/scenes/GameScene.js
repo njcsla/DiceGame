@@ -1,3 +1,6 @@
+// GameScene : 주사위 굴리는 화면
+
+// 게임 정보, 리셋기능, 주사위 기능 불러옴
 import { gameState, resetData, setDiceData } from '../data/dataManager.js';
 import Button from "../ui/myButton.js";
 let rollButton;
@@ -19,9 +22,11 @@ export default class GameScene extends Phaser.Scene {
   
   create() 
   { 
+    // 주사위 정보 로드
     const diceData = this.cache.json.get('diceData');
     setDiceData(diceData);
 
+    // UI 구성
     this.add.image(480, 270, 'playbg').setScale(0.5);
     rollButton = new Button(this, 470, 370, 'rollButton');
     rollButton.setClickHandler(() => {
@@ -48,6 +53,7 @@ export default class GameScene extends Phaser.Scene {
   };
 
   update() {
+    // UI 업데이트
     this.playerResourceText.setText(`Player Resources: ${gameState.playerResources}`);
     this.playerLivesText.setText(`Player Lives: ${gameState.playerLives}`);
     this.computerLevelText.setText(`Computer Level: ${gameState.computerLevel}`);
@@ -55,16 +61,19 @@ export default class GameScene extends Phaser.Scene {
   };
 
   
-
+  // 주사위 계산
   rollDice(diceFaces) {
     const dice1 = diceFaces[Math.floor(Math.random() * diceFaces.length)];
     const dice2 = diceFaces[Math.floor(Math.random() * diceFaces.length)];
     return dice1 + dice2;
   };
 
+  // 라운드 실행
   playRound() {
+    // 카메라 효과
     this.cameras.main.shake(200, 0.01);
 
+    // 카메라 효과가 끝난 뒤 실행
     this.time.delayedCall(300, () => {
       rollButton.disableButton();
       
@@ -96,6 +105,8 @@ export default class GameScene extends Phaser.Scene {
       rollButton.enableButton();
     });
   }
+
+  // 결과에 따라 UI(승/패) 표시
   uiUpdate(player, computer) {
     
     if (player > computer) {
@@ -118,7 +129,7 @@ export default class GameScene extends Phaser.Scene {
     if (gameState.playerLives <= 0) {
         console.log('게임 오버!');
         resetData();
-        this.scene.start('mainScene'); // 메인 화면으로 이동
+        this.scene.start('mainScene'); // 메인 화면으로 이동, 효과 업데이트 해야됨
     }
   }
 };

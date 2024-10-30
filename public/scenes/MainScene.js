@@ -1,4 +1,4 @@
-// import Phaser from "phaser";
+// Mainscene : 메인 화면 //
 import Button from "../ui/myButton.js";
 
 export default class MainScene extends Phaser.Scene {
@@ -25,6 +25,6 @@ export default class MainScene extends Phaser.Scene {
     playButton.setClickHandler(() => this.scene.start('gameScene'));
     
     const forgeButton = new Button(this, 160, 400, 'optionbutton');
-    forgeButton.setClickHandler(() => alert('구현중입니다.'));
+    forgeButton.setClickHandler(() => alert('구현중입니다.'));  // 추후 구현해야 됨
     }
 }
