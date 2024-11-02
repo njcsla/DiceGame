@@ -10,9 +10,6 @@ export default class MainScene extends Phaser.Scene {
     this.load.image('mainbg', './asset/bg/mainbg.png');
     this.load.image('playbutton', './asset/button/gameButton.png');
     this.load.image('optionbutton', './asset/button/optionButton.png');
-    this.load.spritesheet('dice', './asset/dicesprite.png',{
-      frameWidth: 78, frameHeight: 109     
-    });
 
   }
   

@@ -1,37 +1,37 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dice Game</title>
-    <link rel="preconnect" as="font" href="./asset/fonts/BMJUA_ttf.ttf" type="font/ttf">
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.85.0/dist/phaser.js"></script>
+    <!-- <link rel="preconnect" as="font" href="./assets/fonts/BMJUA_ttf.ttf" type="font/ttf"> -->
     <style>
         body {
-            font-family: 'BMJUA_ttf',Arial, sans-serif;
+            font-family: 'BMJUA_ttf', Arial, sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+
         }
-        canvas {
+        
+        #game-container {
+            margin-top: 20px; /* 위쪽 간격 설정 */
             display: block;
-            margin: 0 auto;
         }
-        #ui {
-            text-align: center;
-            margin-top: 20px;
-        }
-        @font-face {
-        font-family: 'BMJUA_ttf';
-        src: url('./assets/fonts/BMJUA_ttf.ttf') format('truetype');
-        font-weight: bold;
-    }
+
+        /* @font-face {
+            font-family: 'BMJUA_ttf';
+            src: url('./assets/fonts/BMJUA_ttf.ttf') format('truetype');
+            font-weight: bold;
+        } */
     </style>
 </head>
 <body>
-    <div id="ui">
-        <p id="gameInfo"></p>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+    <!-- Phaser 게임 캔버스를 표시할 컨테이너 -->
+    <div id="game-container"></div>
     <script type="module" src="./index.js"></script>
 </body>
 </html>

@@ -1,3 +1,5 @@
+
+
 export default class GameButton extends Phaser.GameObjects.Image {
     constructor(scene, x, y, texture) {
         // 상속받는 클래스의 생성자 호출

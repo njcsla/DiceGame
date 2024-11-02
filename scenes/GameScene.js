@@ -3,6 +3,7 @@
 // 게임 정보, 리셋기능, 주사위 기능 불러옴
 import { gameState, resetData, setDiceData } from '../data/dataManager.js';
 import Button from "../ui/myButton.js";
+
 let rollButton;
 
 export default class GameScene extends Phaser.Scene {
