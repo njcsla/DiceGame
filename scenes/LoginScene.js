@@ -1,5 +1,6 @@
 // 로그인 화면, 배경을 넣을까?
 import { fetchData } from "../config.js";
+import { gameState } from "../data/dataManager.js";
 
 export default class LoginScene extends Phaser.Scene {
     constructor() {
@@ -30,8 +31,9 @@ export default class LoginScene extends Phaser.Scene {
                     fetchData({username: inputUsername.value, password: inputPassword.value, action: 'Login'})
                     .then(response => response.json())
                     .then(data => {
+                        // success = true 로 오면
                         if (data.success) {
-                            this.registry.set('username', inputUsername);
+                            gameState.userId = inputUsername.value;
                             //  클릭 이벤트 비활성화
                             element.removeListener('click');
 
@@ -55,9 +57,9 @@ export default class LoginScene extends Phaser.Scene {
                             text.setText('Invalid username or password');
                         }
                     })
-                .catch(error => {
-                console.error('Error:', error);
-                });
+                    .catch(error => {
+                    console.error('Error:', error);
+                    });
                 }
             }
         });

@@ -2,7 +2,10 @@ import MainScene from './scenes/MainScene.js';
 import GameScene from './scenes/GameScene.js';
 import ForgeScene from './scenes/ForgeScene.js';
 import LoginScene from './scenes/LoginScene.js';
+import { gameState } from './data/dataManager.js';
 
+
+// 게임 기본 설정
 const config = {
     type: Phaser.AUTO,
     width: 960,
@@ -16,6 +19,7 @@ const config = {
 
 };
 
+// fetch
 export function fetchData(data){
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyU2f_RbbccploiiE0lE7GxOfCnF9B8k__cZnf28d5FZ8bHOVRt5U3mHeSITd5Qt7al/exec';
                     
@@ -28,6 +32,21 @@ export function fetchData(data){
         mode: 'cors',       // cors 없어도 됨... 차피 일렉트론으로 빌드할거라.. 그래도 혹시 모르니깐..
         body: JSON.stringify(data)
     })
+}
+
+// 보낼 데이터 가공
+export function logdata(state){
+    const data = {
+        username: gameState.userId,
+        action: 'Play',
+        detail: {
+            state: state,
+            playerLevel: gameState.playerLevel,
+            computerLevel: gameState.computerLevel,
+            playerResources: gameState.playerResources
+        }
+    }
+    return data;
 }
 
 

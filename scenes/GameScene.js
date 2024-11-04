@@ -1,4 +1,5 @@
 // GameScene : 주사위 굴리는 화면
+import { fetchData, logdata } from '../config.js';
 
 // 게임 정보, 리셋기능, 주사위 기능 불러옴
 import { gameState, resetData, setDiceData } from '../data/dataManager.js';
@@ -60,7 +61,8 @@ export default class GameScene extends Phaser.Scene {
     this.computerLevelText.setText(`Computer Level: ${gameState.computerLevel}`);
     this.checkGameOver();
   };
-
+  
+/*********************************** */
   
   // 주사위 계산
   rollDice(diceFaces) {
@@ -85,27 +87,31 @@ export default class GameScene extends Phaser.Scene {
       console.log(`플레이어: ${playerRoll}, 컴퓨터: ${computerRoll}`);
 
       if (playerRoll > computerRoll) {
-          console.log("플레이어 승리!");
-          gameState.playerResources += 15 + (gameState.computerLevel - 1) * 10;
-          gameState.playerLives += 1;
-          gameState.computerLevel += 1;
+        const data = logdata('win')
+        fetchData(data);
+        console.log("플레이어 승리!");
+        gameState.playerResources += 15 + (gameState.computerLevel - 1) * 10;
+        gameState.playerLives += 1;
+        gameState.computerLevel += 1;
           
 
       } else if (playerRoll < computerRoll) {
-          console.log("컴퓨터 승리!");
-          gameState.playerResources += 5;
-          gameState.playerLives -= 1;
-
-          this.lose.setVisible(true);
-          this.win.setVisible(false);
+        const data = logdata('lose')
+        fetchData(data);
+        console.log("컴퓨터 승리!");
+        gameState.playerResources += 5;
+        gameState.playerLives -= 1;
 
       } else {
-          console.log("비김!");
+        const data = logdata('draw')
+        fetchData(data);
+        console.log("비김!");
       };
       this.uiUpdate(playerRoll, computerRoll);
       rollButton.enableButton();
     });
   }
+
 
   // 결과에 따라 UI(승/패) 표시
   uiUpdate(player, computer) {
@@ -129,6 +135,8 @@ export default class GameScene extends Phaser.Scene {
   checkGameOver() {
     if (gameState.playerLives <= 0) {
         console.log('게임 오버!');
+        const data = logdata('gameover')
+        fetchData(data);
         resetData();
         this.scene.start('mainScene'); // 메인 화면으로 이동, 효과 업데이트 해야됨
     }

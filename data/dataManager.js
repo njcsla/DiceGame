@@ -1,4 +1,5 @@
 export const gameState = {
+    userId: "",
     playerLevel: 1,
     computerLevel: 1,
     playerResources: 100,
