@@ -1,4 +1,5 @@
 // 로그인 화면, 배경을 넣을까?
+import { fetchData } from "../config.js";
 
 export default class LoginScene extends Phaser.Scene {
     constructor() {
@@ -25,24 +26,12 @@ export default class LoginScene extends Phaser.Scene {
                 const inputPassword = element.getChildByName('password');
 
                 // 입력이 있으면?
-                if (inputUsername.value !== '' && inputPassword.value !== ''){
-                    const scriptURL = 'https://script.google.com/macros/s/AKfycbyU2f_RbbccploiiE0lE7GxOfCnF9B8k__cZnf28d5FZ8bHOVRt5U3mHeSITd5Qt7al/exec';
-                    
-                    fetch(scriptURL,{
-                        redirect: "follow",
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        mode: 'cors',       // cors 없어도 됨... 차피 일렉트론으로 빌드할거라.. 그래도 혹시 모르니깐..
-                        body: JSON.stringify({
-                            username: inputUsername.value,
-                            password: inputPassword.value
-                        })
-                    })
+                if (inputUsername.value !== '' && inputPassword.value !== ''){                    
+                    fetchData({username: inputUsername.value, password: inputPassword.value, action: 'Login'})
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
+                            this.registry.set('username', inputUsername);
                             //  클릭 이벤트 비활성화
                             element.removeListener('click');
 

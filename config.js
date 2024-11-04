@@ -16,5 +16,20 @@ const config = {
 
 };
 
+export function fetchData(data){
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyU2f_RbbccploiiE0lE7GxOfCnF9B8k__cZnf28d5FZ8bHOVRt5U3mHeSITd5Qt7al/exec';
+                    
+    return fetch(scriptURL,{
+        redirect: "follow",
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        mode: 'cors',       // cors 없어도 됨... 차피 일렉트론으로 빌드할거라.. 그래도 혹시 모르니깐..
+        body: JSON.stringify(data)
+    })
+}
+
+
 
 export default config;
