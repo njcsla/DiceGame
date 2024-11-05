@@ -15,7 +15,7 @@ const config = {
     dom:{
         createContainer: true
     },
-    scene: [LoginScene, MainScene, GameScene, ForgeScene] // 씬 추가될 때 마다 추가해야함
+    scene: [LoginScene,MainScene, GameScene, ForgeScene] // 씬 추가될 때 마다 추가해야함
 
 };
 

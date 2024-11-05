@@ -13,13 +13,15 @@ export default class GameScene extends Phaser.Scene {
   };
 
   preload(){
-    this.load.image('playbg', './asset/bg/playbg.png');
+    this.load.image('bg', './asset/bg/playbg.png');
     this.load.json('diceData', './data/datafile.json');
     this.load.image('rollButton', './asset/button/rollButton.png');
     this.load.image('forgeButton', './asset/button/forgeButton.png');
     this.load.image('backButton', './asset/button/backButton.png');
     this.load.image('winText', './asset/win.png');
     this.load.image('loseText', './asset/lose.png');
+    this.load.image('heart', './asset/roll/heart.png');
+    this.load.image('info', './asset/roll/info.png');
   };
   
   create() 
@@ -28,13 +30,18 @@ export default class GameScene extends Phaser.Scene {
     const diceData = this.cache.json.get('diceData');
     setDiceData(diceData);
 
-    // UI 구성
-    this.add.image(480, 270, 'playbg').setScale(0.5);
+    // 배경 구성
+    this.add.image(480, 270, 'bg').setScale(0.5);
+    this.add.image(480, 270, 'info').setScale(0.5);
+    this.add.image(480, 270, 'heart').setScale(0.5);
+
+
+    // 버튼 구성
     rollButton = new Button(this, 470, 370, 'rollButton');
     rollButton.setClickHandler(() => {
       this.playRound();
     });
-
+    
     const forgeButton = new Button(this, 800, 400, 'forgeButton');
     forgeButton.setClickHandler(() => {
         this.scene.start('forgeScene');
@@ -45,20 +52,23 @@ export default class GameScene extends Phaser.Scene {
         this.scene.start('mainScene');
     });
 
+    // 승/패 미리 불러놓기
     this.win = this.add.image(485, 270, 'winText').setScale(0.5).setVisible(false);
     this.lose = this.add.image(485, 270, 'loseText').setScale(0.5).setVisible(false);
 
-    this.playerResourceText = this.add.text(50, 100, `Player Resources: ${gameState.playerResources}`, {fontfamily: 'BMJUA_ttf', fontSize: '20px', fill: '#fff' });
-    this.playerLivesText = this.add.text(50, 130, `Player Lives: ${gameState.playerLives}`, {fontfamily: 'BMJUA_ttf', fontSize: '20px', fill: '#fff' });
-    this.computerLevelText = this.add.text(50, 160, `Computer Level: ${gameState.computerLevel}`, {fontfamily: 'BMJUA_ttf', fontSize: '20px', fill: '#fff' });
+
+    // 플레이어 정보
+    this.playerResourceText = this.add.text(210, 432, gameState.playerResources, {fontSize: '30px', fill: '#edc248', stroke: '#000', strokeThickness: 4 }).setFontFamily('TAEBAEK');
+    this.playerLivesText = this.add.text(830, 96, `${gameState.playerLives}`, {fontSize: '30px', fill: '#af2df5', stroke: '#000', strokeThickness: 4 }).setFontFamily('TAEBAEK');
+    this.computerLevelText = this.add.text(240, 393, `${gameState.computerLevel}`, {fontSize: '30px', fill: '#9d7ef7', stroke: '#000', strokeThickness: 4 }).setFontFamily('TAEBAEK');
 
   };
 
   update() {
     // UI 업데이트
-    this.playerResourceText.setText(`Player Resources: ${gameState.playerResources}`);
-    this.playerLivesText.setText(`Player Lives: ${gameState.playerLives}`);
-    this.computerLevelText.setText(`Computer Level: ${gameState.computerLevel}`);
+    this.playerResourceText.setText(`${gameState.playerResources}`);
+    this.playerLivesText.setText(`${gameState.playerLives}`);
+    this.computerLevelText.setText(`${gameState.computerLevel}`);
     this.checkGameOver();
   };
   
