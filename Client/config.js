@@ -3,6 +3,7 @@ import GameScene from './scenes/GameScene.js';
 import ForgeScene from './scenes/ForgeScene.js';
 import LoginScene from './scenes/LoginScene.js';
 import { gameState } from './data/dataManager.js';
+import GameoverScene from './scenes/GameoverScene.js';
 
 
 // 게임 기본 설정
@@ -15,7 +16,7 @@ const config = {
     dom:{
         createContainer: true
     },
-    scene: [LoginScene,MainScene, GameScene, ForgeScene] // 씬 추가될 때 마다 추가해야함
+    scene: [LoginScene, MainScene, ForgeScene, GameScene, GameoverScene] // 씬 추가될 때 마다 추가해야함
 
 };
 

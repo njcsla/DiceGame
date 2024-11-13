@@ -2,7 +2,7 @@
 import { fetchData, logdata } from '../config.js';
 
 // 게임 정보, 리셋기능, 주사위 기능 불러옴
-import { gameState, resetData, setDiceData } from '../data/dataManager.js';
+import { checkMilestone, gameState, resetData, setDiceData } from '../data/dataManager.js';
 import Button from "../ui/myButton.js";
 
 let rollButton;
@@ -69,7 +69,6 @@ export default class GameScene extends Phaser.Scene {
     this.playerResourceText.setText(`${gameState.playerResources}`);
     this.playerLivesText.setText(`${gameState.playerLives}`);
     this.computerLevelText.setText(`${gameState.computerLevel}`);
-    this.checkGameOver();
   };
   
 /*********************************** */
@@ -100,6 +99,8 @@ export default class GameScene extends Phaser.Scene {
         const data = logdata('win')
         fetchData(data);
         console.log("플레이어 승리!");
+
+        checkMilestone('win');
         gameState.playerResources += 15 + (gameState.computerLevel - 1) * 10;
         gameState.playerLives += 1;
         gameState.computerLevel += 1;
@@ -108,6 +109,10 @@ export default class GameScene extends Phaser.Scene {
       } else if (playerRoll < computerRoll) {
         const data = logdata('lose')
         fetchData(data);
+
+        checkMilestone('lose');
+        gameState.wintime = 0;
+        
         console.log("컴퓨터 승리!");
         gameState.playerResources += 5;
         gameState.playerLives -= 1;
@@ -115,10 +120,12 @@ export default class GameScene extends Phaser.Scene {
       } else {
         const data = logdata('draw')
         fetchData(data);
+        checkMilestone('draw')
         console.log("비김!");
       };
       this.uiUpdate(playerRoll, computerRoll);
       rollButton.enableButton();
+      this.checkGameOver();
     });
   }
 
@@ -145,10 +152,7 @@ export default class GameScene extends Phaser.Scene {
   checkGameOver() {
     if (gameState.playerLives <= 0) {
         console.log('게임 오버!');
-        const data = logdata('gameover')
-        fetchData(data);
-        resetData();
-        this.scene.start('mainScene'); // 메인 화면으로 이동, 효과 업데이트 해야됨
+        this.scene.start('gameoverScene');
     }
   }
 };

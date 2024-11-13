@@ -1,4 +1,4 @@
-import { gameState } from '../data/dataManager.js';
+import { checkMilestone, gameState } from '../data/dataManager.js';
 import Button from "../ui/myButton.js";
 
 
@@ -49,9 +49,8 @@ export default class ForgeScene extends Phaser.Scene {
     }
 
     upgradeDice() {
-        gameState.nextLevel = gameState.playerLevel + 1;
         const upgradeInfo = this.upgradeData.upgrades.find(u => u.level === gameState.nextLevel);
-
+        
         if (!upgradeInfo) {
             console.log("더 이상 강화할 수 없습니다.");
             return;
@@ -63,6 +62,7 @@ export default class ForgeScene extends Phaser.Scene {
         // 플레이어 자원이 강화 비용보다 적으면 강화 실패
         if (gameState.playerResources < gameState.nextResources) {
             console.log("자원이 부족합니다.");
+            alert("자원이 부족합니다!")
             return;
         }
 
@@ -71,10 +71,11 @@ export default class ForgeScene extends Phaser.Scene {
 
         // 성공 여부 결정 (성공 확률에 따라)
         const success = Math.random() * 100 < gameState.nextRate;
-
+        
         if (success) {
             // 강화 성공
             gameState.playerLevel += 1;  // 레벨 상승
+            gameState.nextLevel = gameState.playerLevel + 1; // 다음 레벨 설정
             this.updateDiceImage();
 
             const newUpgradeInfo = this.upgradeData.upgrades.find(u => u.level === gameState.playerLevel + 1);
@@ -89,6 +90,7 @@ export default class ForgeScene extends Phaser.Scene {
             console.log("강화 성공!");
         } else {
             // 강화 실패
+            checkMilestone("forge");
             console.log("강화 실패!");
         }
         
